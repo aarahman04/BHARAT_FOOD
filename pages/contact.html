@@ -270,6 +270,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile menu toggle: assume similar logic as your main site
+      const hamburger = document.querySelector('.hamburger');
+      const navList = document.querySelector('.nav-list');
+      const closeBtn = document.querySelector('.nav-list .close');
+      if (hamburger && navList && closeBtn) {
+        hamburger.addEventListener('click', () => {
+          navList.classList.add('show');
+        });
+        closeBtn.addEventListener('click', () => {
+          navList.classList.remove('show');
+        });
+      }
+
+      // Filtering functionality
+      const filterSpans = document.querySelectorAll('.filters span');
+      const productCols = document.querySelectorAll('.services.explore .row .col');
+
+      filterSpans.forEach(span => {
+        span.addEventListener('click', () => {
+          // Update active class
+          filterSpans.forEach(s => s.classList.remove('active'));
+          span.classList.add('active');
+
+          const category = span.getAttribute('data-category');
+          productCols.forEach(col => {
+            const itemCategories = col.getAttribute('data-category')
+              ? col.getAttribute('data-category').split(' ')
+              : [];
+            if (category === 'all' || itemCategories.includes(category)) {
+              col.style.display = '';
+            } else {
+              col.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
 
   </body>
 </html>
+
